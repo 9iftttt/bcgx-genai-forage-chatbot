@@ -72,11 +72,15 @@ The chatbot answers questions about:
     ```
 2. **Project structure:**
     ```
-    your_project/
-      app.py
-      Task1_Summary-Finding.csv
-      templates/
-        index.html
+bcgx-genai-forage-chatbot/
+  app.py
+  Task1_Summary-Finding.csv
+  requirements.txt
+  templates/
+    index.html
+  static/
+    styles.css
+
     ```
 3. **Start the app:**
     ```bash
@@ -89,8 +93,15 @@ The chatbot answers questions about:
 
 ## ✨ Credits
 
-- Developed for the BCGx AI/Finance Virtual Internship, 2025.
+- Developed for the BCGx GenAI Job Simulation (Forage Virtual Experience), 2025.
 - Interface design inspired by modern conversational AI apps.
+- Designed & implemented by Chonnikarn Yuthchana.
 
+---
+
+## 📢 Disclaimer
+
+This chatbot is a simulation for the BCGx GenAI Job Simulation.
+It does not provide real financial advice.
 ---
 
