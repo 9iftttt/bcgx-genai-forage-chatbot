@@ -133,9 +133,10 @@ The chatbot answers questions about:
 
 ---
 
-## 📸 Screenshots
+## 🚀 Live Demo
 
-*Add your screenshots here for extra portfolio appeal!*
+[Try the chatbot live on Render.com!](https://bcgx-genai-forage-chatbot.onrender.com/)
+
 
 ---
 
