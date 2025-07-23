@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>BCGx GenAI Job Simulation – Financial Chatbot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles.css') }}"
+    />
+  </head>
+  <body>
+    <div class="chat-container">
+      <div class="chat-title">
+        How can I assist with your financial data today?
+      </div>
+      {% if history|length == 0 %}
+      <div class="suggestions">
+        <div
+          class="suggestion-chip"
+          onclick="fillInput(`What is Apple's revenue in 2024?`)"
+        >
+          What is Apple's revenue in 2024?
+        </div>
+        <div
+          class="suggestion-chip"
+          onclick="fillInput(`Did Tesla's revenue decline in 2023?`)"
+        >
+          Did Tesla's revenue decline in 2023?
+        </div>
+        <div
+          class="suggestion-chip"
+          onclick="fillInput(`What was Microsoft's net income growth from 2023 to 2024?`)"
+        >
+          Microsoft's net income growth?
+        </div>
+      </div>
+      {% endif %}
+
+      <div class="chat-bubbles" id="chat-bubbles">
+        {% for msg in history %} {% if msg.role == 'user' %}
+        <div class="bubble user-bubble">{{ msg.text }}</div>
+        {% else %}
+        <div class="bubble bot-bubble">
+          {% if loop.last %}<span id="bot-latest">{{ msg.text }}</span>{% else
+          %}{{ msg.text }}{% endif %}
+        </div>
+        {% endif %} {% endfor %}
+        <!-- iMessage typing bubble (hidden by default) -->
+        <div id="typing-bubble" class="imessage-typing" style="display: none">
+          <div class="bubble bot-bubble">
+            <span class="typing-dots">
+              <span></span><span></span><span></span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <form class="input-bar" method="post" autocomplete="off" id="chat-form">
+        <input
+          type="text"
+          name="user_input"
+          id="user_input"
+          placeholder="Ask anything..."
+          autofocus
+          required
+        />
+        <button type="submit">&#8593;</button>
+      </form>
+    </div>
+    {% if history|length > 0 %}
+    <form action="{{ url_for('clear') }}" method="post">
+      <button type="submit" class="clear-btn">Clear Chat</button>
+    </form>
+    {% endif %}
+
+    <footer class="footer">
+      <span class="footer-disclaimer">
+        This chatbot is a simulation for the
+        <strong>BCGx GenAI Job Simulation</strong>. It does <em>not</em> provide
+        real financial advice.
+        <span class="footer-author">by Chonnikarn Yuthchana</span>
+      </span>
+    </footer>
+
+    <script>
+      function fillInput(val) {
+        document.getElementById("user_input").value = val;
+        document.getElementById("user_input").focus();
+      }
+
+      // Typewriter effect
+      function typeWriterEffect(element, text, speed = 22, callback = null) {
+        let i = 0;
+        element.innerHTML = "";
+        function type() {
+          if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+          } else if (callback) {
+            callback();
+          }
+        }
+        type();
+      }
+
+      // Show typing bubble on submit, then submit form after delay
+      const form = document.getElementById("chat-form");
+      const typingBubble = document.getElementById("typing-bubble");
+      form.onsubmit = function (event) {
+        event.preventDefault();
+        typingBubble.style.display = "";
+        // Optionally scroll chat to bottom
+        document.getElementById("chat-bubbles").scrollTop =
+          document.getElementById("chat-bubbles").scrollHeight;
+        setTimeout(() => {
+          typingBubble.style.display = "none";
+          form.submit();
+        }, 1200); // Show typing bubble for 1.2s
+      };
+
+      // On page load, scroll and animate last bot reply with typewriter effect
+      window.onload = function () {
+        var chat = document.getElementById("chat-bubbles");
+        chat.scrollTop = chat.scrollHeight;
+        var latest = document.getElementById("bot-latest");
+        if (latest) {
+          var originalText = latest.textContent;
+          latest.textContent = "";
+          typeWriterEffect(latest, originalText, 22);
+        }
+      };
+    </script>
+  </body>
+</html>
