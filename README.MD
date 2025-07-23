@@ -1,4 +1,5 @@
-# Financial Chatbot
+# bcgx-genai-forage-chatbot
+AI-powered Financial Chatbot (Flask App) Interactive GenAI chatbot that answers financial data questions from CSV files. Built for the BCGx GenAI Job Simulation on Forage by Chonnikarn Yuthchana.
 
 A rule-based, AI-powered financial chatbot for querying company financial data from 2022–2024. Built with Python, Flask, and Pandas, this project features an interactive, modern web chat interface inspired by leading conversational AI designs.
 
